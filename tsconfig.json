@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "ES2019",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"strict": true,
+		"resolveJsonModule": true,
+		"module": "es6",
+	}
+}
