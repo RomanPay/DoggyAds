@@ -6,10 +6,11 @@ var size = [1920, 1080];
 
 export const Images = {
     Char: "assets/images/char.png",
-    Background: "assets/images/background.png",
     Doggy: "assets/images/doggy.png",
-    Circle: "assets/images/circle.png",
-    BackgroundTile: "assets/images/BackgroundTile.png"
+    Background: "assets/images/background.jpg",
+    BackgroundTile: "assets/images/BackgroundTile.png",
+    PlayButton: "assets/images/button.png",
+    Logo: "assets/images/logo.png",
 }
 
 export const App = new class App extends Pixi.Application
@@ -21,7 +22,7 @@ export const App = new class App extends Pixi.Application
     constructor()
     {
         super({
-            // resizeTo: window
+            resizeTo: window
         });
         
         this._loadProcessing();
@@ -41,8 +42,9 @@ export const App = new class App extends Pixi.Application
             Images.Char,
             Images.Background,
             Images.Doggy,
-            Images.Circle,
-            Images.BackgroundTile
+            Images.BackgroundTile,
+            Images.PlayButton,
+            Images.Logo
         ]);
         this.loader.add("assets/spritesheets/highlights/texture.json")
         
@@ -72,4 +74,5 @@ export const App = new class App extends Pixi.Application
 }
 
 document.body.appendChild(App.view);
+document.body.style.margin = "0";
 window.addEventListener('resize', () => App.onResize());
