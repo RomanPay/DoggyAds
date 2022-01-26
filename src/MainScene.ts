@@ -1,8 +1,10 @@
 import * as Pixi from "pixi.js";
-import { Images } from "./app";
+import { App } from "./app";
+import { Background64 } from "./assets/Background64";
 import { Doggy, DoggyConfig } from "./Doggy";
 import { EventsUI } from "./UI";
 import { MySprite } from "./Utils/MySprite";
+import { Sprite64 } from "./Utils/MySprite64";
 
 const DoggysConfig: DoggyConfig[] = [
     { flip: false, scale: 1, landscape: { x: 230 - 535, y: 610 - 385 }, portrait: { x: 720 - 535, y: 570 - 385 + 10 } },
@@ -50,7 +52,7 @@ export class MainScene extends Pixi.Container
 
     private _init()
     {
-        const back = new MySprite(this.app, Images.Background);
+        const back = new Sprite64(Background64);
         back.anchor.set(0.5);
         this.addChild(back);
         for (let i = 0; i < 5; i++)
@@ -66,8 +68,7 @@ export class MainScene extends Pixi.Container
         this.numDetectedDogs++;
         if (this.numDetectedDogs >= 5)
         {
-            this.app.stage.emit(EventsUI.AllDogsDetected);
-
+            setTimeout(() => this.app.stage.emit(EventsUI.AllDogsDetected), 300);
         }
     }
 }

@@ -2,8 +2,10 @@ const path = require("path");
 
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineScriptWebpackPlugin = require('html-inline-script-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack')
+const webpack = require('webpack');
+const json = require('./src/assets/texture.json');
 
 module.exports = {
     mode: 'development',
@@ -20,12 +22,13 @@ module.exports = {
             title: 'Doggy Ads',
             minify: false,
         }),
-        new CopyPlugin({
-            patterns: [{
-                from: './src/assets',
-                to: './assets',
-            }],
-        }),
+        // new HtmlWebpackInlineScriptWebpackPlugin(),
+        // new CopyPlugin({
+        //     patterns: [{
+        //         from: './src/assets',
+        //         to: './assets',
+        //     }],
+        // }),
         new webpack.ProgressPlugin(),
     ],
 
@@ -36,7 +39,7 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             }
-        ],
+        ]
     },
     resolve: {
         extensions: ['.ts', '.js'],

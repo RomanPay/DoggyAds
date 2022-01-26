@@ -1,5 +1,7 @@
 import * as Pixi from "pixi.js";
-import { App, Images } from "./app";
+import { App } from "./app";
+import { Doggy64 } from "./assets/Doggy64";
+import { Sprite64 } from "./Utils/MySprite64";
 
 export type DoggyConfig = {
     flip: boolean;
@@ -15,6 +17,7 @@ export class Doggy
     anim: Pixi.AnimatedSprite;
     config: DoggyConfig;
     callback: Function;
+    detected: boolean = false;
 
     constructor(app: Pixi.Application, container: Pixi.Container, config: DoggyConfig, callback: Function)
     {
@@ -22,7 +25,8 @@ export class Doggy
         this.config = config;
         this.callback = callback;
 
-        this.doggy = new Pixi.Sprite(this.app.loader.resources[Images.Doggy].texture);
+        // this.doggy = new Pixi.Sprite(this.app.loader.resources[Images.Doggy].texture);
+        this.doggy = new Sprite64(Doggy64);
         this.doggy.interactive = true;
         this.doggy.scale.set(config.scale);
         if (config.flip === true)
@@ -30,7 +34,6 @@ export class Doggy
         this.doggy.anchor.set(0.5);
         this.doggy.on('pointerup', this.onPointerUp, this);
         container.addChild(this.doggy);
-        // app.stage.addChild(this.doggy);
         
         const anim = new Pixi.AnimatedSprite(App.framesAnim);
         anim.scale.set(config.scale);
@@ -39,12 +42,14 @@ export class Doggy
         anim.loop = false;
         anim.visible = false;
         container.addChild(anim);
-        // app.stage.addChild(anim);
         this.anim = anim;
     }
 
     onPointerUp()
     {
+        if (this.detected === true)
+            return;
+        this.detected = true;
         this.callback();
         this.anim.visible = true;
         this.anim.play();
